@@ -185,7 +185,7 @@ func (ggSession *GreengrassSession) SubmitFunction(lambdaConfig LambdaConfig) er
 		if err != nil {
 			continue
 		}
-		memorySize := *f.Configuration.MemorySize * 1000
+		memorySize := *f.Configuration.MemorySize * 1024
 		functions = append(functions, &greengrass.Function{
 			FunctionArn: f.Configuration.FunctionArn,
 			FunctionConfiguration: &greengrass.FunctionConfiguration{
