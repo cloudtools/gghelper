@@ -1,10 +1,10 @@
 config.json
-gghelper*
+/gghelper*
 !cmd/gghelper/
 *.pem
 
 # Misc directories
-dist
+/dist
 temp
 .idea
 
