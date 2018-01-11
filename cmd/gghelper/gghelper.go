@@ -18,6 +18,7 @@ func main() {
 		fmt.Println(" createsub     create a new Greengrass subscription")
 		fmt.Println(" deleteregion  delete all greengrass/iot resources in a region")
 		fmt.Println(" lambda        submit a lambda function")
+		fmt.Println(" listgroup     list greengrass group")
 		fmt.Println(" listlambda    list greengrass view of lambda functions")
 		fmt.Println(" listsub       list greengrass subscriptions")
 		return
@@ -34,6 +35,8 @@ func main() {
 		DeleteRegion(os.Args[2:])
 	case "lambda":
 		Lambda(os.Args[2:])
+	case "listgroup":
+		ListGroup(os.Args[2:])
 	case "listlambda":
 		ListLambda(os.Args[2:])
 	case "listsub":

@@ -20,7 +20,7 @@ func CreateGroup(args []string) {
 	cmdFlags.Parse(args)
 
 	if name == "" {
-		fmt.Printf("Must specify a name for the core\n")
+		fmt.Printf("Must specify a name for the group\n")
 		os.Exit(1)
 	}
 
@@ -35,4 +35,27 @@ func CreateGroup(args []string) {
 
 	ggSession.GetConfigArchive()
 	ggSession.WriteGroupConfig("config.json")
+}
+
+// ListGroup - command execution for listgroup subcommand
+func ListGroup(args []string) {
+
+	var region, profile string
+	var name string
+
+	cmdFlags := flag.NewFlagSet("ask", flag.ExitOnError)
+
+	cmdFlags.StringVar(&region, "r", "", "region")
+	cmdFlags.StringVar(&profile, "p", "", "profile")
+	cmdFlags.StringVar(&name, "name", "", "core name")
+	cmdFlags.Parse(args)
+
+	ggSession := CreateSession(profile, region)
+
+	ggSession.LoadGroupConfig("config.json")
+
+	err := ggSession.ListGroup()
+	if err != nil {
+		fmt.Printf("Error: %v\n", err)
+	}
 }
