@@ -16,7 +16,9 @@ type function struct {
 }
 
 type group struct {
-	ID string `json:"id"`
+	Arn     string `json:"arn"`
+	ID      string `json:"id"`
+	Version string `json:"version"`
 }
 
 type thing struct {

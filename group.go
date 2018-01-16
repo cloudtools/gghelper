@@ -80,11 +80,15 @@ func (ggSession *GreengrassSession) updateGroup() error {
 		input.SubscriptionDefinitionVersionArn = &ggSession.config.SubscriptionDefinition.VersionArn
 	}
 
-	_, err := ggSession.greengrass.CreateGroupVersion(input)
+	groupVersion, err := ggSession.greengrass.CreateGroupVersion(input)
 	if err != nil {
 		fmt.Printf("updateGroup error: %v\n", err)
 		return err
 	}
+
+	ggSession.config.Group.Arn = *groupVersion.Arn
+	ggSession.config.Group.Version = *groupVersion.Version
+
 	fmt.Printf("Updated group version\n")
 
 	return nil
