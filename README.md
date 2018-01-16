@@ -33,7 +33,10 @@ A typical workflow is:
 	gghelper createsub -source HellovSphere -target cloud -subject "hello/vsphere"
 	```
 
-1. A TODO is adding a command to deploy. For now, go to the UI to deploy this group to the Greengrass core.
+1. Make a deployment to download config and code to the Greengrass core
+   ```
+   gghelper createdeployment
+   ```
 
 1. Going to the Greengrass Test page, create a subscription (using # will get all the messages) to see the function run periodically every 5 seconds.
 
