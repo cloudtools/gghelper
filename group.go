@@ -95,14 +95,38 @@ func (ggSession *GreengrassSession) updateGroup() error {
 }
 
 // ListGroup - list the group definition
-func (ggSession *GreengrassSession) ListGroup() error {
+func (ggSession *GreengrassSession) ListGroup(name string) error {
+	var id string
+
+	if name != "" {
+		listOutput, err := ggSession.greengrass.ListGroups(&greengrass.ListGroupsInput{})
+		if err != nil {
+			return err
+		}
+		for _, v := range listOutput.Groups {
+			if name == *v.Name {
+				id = *v.Id
+				break
+			}
+		}
+		if id == "" {
+			return fmt.Errorf("group %s not found", name)
+		}
+	} else {
+		id = ggSession.config.Group.ID
+	}
+
 	group, err := ggSession.greengrass.GetGroup(&greengrass.GetGroupInput{
-		GroupId: &ggSession.config.Group.ID,
+		GroupId: &id,
 	})
 	if err != nil {
 		return err
 	}
 	fmt.Printf("group: %v\n", group)
+
+	if group.LatestVersion == nil {
+		return nil
+	}
 
 	groupVersion, err := ggSession.greengrass.GetGroupVersion(&greengrass.GetGroupVersionInput{
 		GroupId:        group.Id,

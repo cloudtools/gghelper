@@ -54,8 +54,9 @@ func ListGroup(args []string) {
 
 	ggSession.LoadGroupConfig("config.json")
 
-	err := ggSession.ListGroup()
+	err := ggSession.ListGroup(name)
 	if err != nil {
 		fmt.Printf("Error: %v\n", err)
+		os.Exit(1)
 	}
 }
